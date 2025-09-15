@@ -1,8 +1,6 @@
 const express = require("express");
 const AuthControllers = require("../controllers/AuthControllers");
 
-console.log("Loaded AuthControllers:", AuthControllers); // 🔍 Debug step here
-
 const router = express.Router();
 
 router.post("/register", AuthControllers.registerPartner);
