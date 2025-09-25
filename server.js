@@ -40,7 +40,7 @@ const app = express();
     cors({
       origin: [
         "http://localhost:3000", // Local dev
-        "https://frontend-partner-app.onrender.com/", // staging
+        "https://frontend-partner-app.onrender.com", // staging
       ],
       methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
       credentials: true,
@@ -59,7 +59,7 @@ app.use(express.json());
 connectDb();
 
 //Partner Routes
-app.use('/prime-table-partner/auth', authRoutes);
+app.use('/auth', authRoutes);
 app.use('/prime-table-partner/reservations', reservationRoutes);
 app.use('/prime-table-partner/dashboard', dashboardRoutes);
 app.use("/prime-table-partner/restaurants", restaurantRoutes);
