@@ -35,7 +35,7 @@ const adminSecurityRoutes = require('./routes/adminSecurityRoutes');
 const app = express();
 
 // Middleware
-app.use(cors({ origin: ["http://localhost:3000", "http://localhost:3001"], credentials: true }));
+app.use(cors({ origin: ["http://localhost:3000", "http://localhost:3001", "https://frontend-partner-app.onrender.com/registration"], credentials: true }));
 app.use(
   fileUpload({
     useTempFiles: true,
