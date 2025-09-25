@@ -6,6 +6,8 @@ dotenv.config();
 
 const cors = require("cors");
 const connectDb = require('./config/db');
+
+//Partner Routes
 const authRoutes = require('./routes/authRoutes')
 const reservationRoutes = require('./routes/reservationRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes');
@@ -19,12 +21,21 @@ const securityRoutes = require("./routes/securityRoutes");
 const communicationRoutes = require("./routes/communicationRoutes");
 const dashboardSummaryRoutes = require('./routes/dashboardSummaryRoutes');
 
+//Admin Routes
+const adminRoutes = require('./routes/adminRoute');
+const adminSettingsRoutes = require('./routes/adminSettingsRoutes');
+const adminBrandingRoutes = require('./routes/adminBrandingRoutes');
+const adminIntegrationRoutes = require('./routes/adminIntegrationRoutes');
+const adminNotificationsRoutes = require('./routes/adminNotificationsRoutes');
+const adminSecurityRoutes = require('./routes/adminSecurityRoutes');
+
+
 
 
 const app = express();
 
 // Middleware
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(cors({ origin: ["http://localhost:3000", "http://localhost:3001"], credentials: true }));
 app.use(
   fileUpload({
     useTempFiles: true,
@@ -36,6 +47,7 @@ app.use(express.json());
 //connectedDb
 connectDb();
 
+//Partner Routes
 app.use('/prime-table-partner/auth', authRoutes);
 app.use('/prime-table-partner/reservations', reservationRoutes);
 app.use('/prime-table-partner/dashboard', dashboardRoutes);
@@ -48,6 +60,15 @@ app.use("/prime-table-partner/payout", payoutDetailsRoutes);
 app.use("/prime-table-partner/security", securityRoutes);
 app.use("/prime-table-partner/settings", communicationRoutes);
 app.use('/prime-table-partner', dashboardSummaryRoutes);
+
+//Admin Routes
+app.use('/prime-table-admin', adminRoutes);
+app.use('/prime-table-admin/settings', adminSettingsRoutes);
+app.use('/prime-table-admin/settings', adminBrandingRoutes);
+app.use('/prime-table-admin/settings/integration', adminIntegrationRoutes);
+app.use('/prime-table-admin/settings/notifications', adminNotificationsRoutes);
+app.use('/prime-table-admin/settings/security', adminSecurityRoutes);
+
 
 app.get("/", (req, res) => {
   res.send("Prime Table Backend is running ");
