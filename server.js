@@ -35,7 +35,20 @@ const adminSecurityRoutes = require('./routes/adminSecurityRoutes');
 const app = express();
 
 // Middleware
-app.use(cors({ origin: ["http://localhost:3000", "http://localhost:3001", "https://frontend-partner-app.onrender.com/registration"], credentials: true }));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000", // local dev
+      "http://localhost:3001", // local dev (another port you had)
+      "https://frontend-partner-app.onrender.com", // production/staging
+      "https://frontend-partner-app.onrender.com",
+      "https://prime-table-admin.vercel.app/login" 
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true,
+  })
+);
+
 app.use(
   fileUpload({
     useTempFiles: true,
@@ -48,7 +61,7 @@ app.use(express.json());
 connectDb();
 
 //Partner Routes
-app.use('/prime-table-partner/auth', authRoutes);
+app.use('/auth', authRoutes);
 app.use('/prime-table-partner/reservations', reservationRoutes);
 app.use('/prime-table-partner/dashboard', dashboardRoutes);
 app.use("/prime-table-partner/restaurants", restaurantRoutes);
