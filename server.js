@@ -72,7 +72,7 @@ app.use("/profile-setting", profileSettingRoutes);
 app.use("/payout", payoutDetailsRoutes);
 app.use("/security", securityRoutes);
 app.use("/settings", communicationRoutes);
-app.use('/', dashboardSummaryRoutes);
+app.use('/dashboard-summary', dashboardSummaryRoutes);
 
 //Admin Routes
 app.use('/prime-table-admin', adminRoutes);
