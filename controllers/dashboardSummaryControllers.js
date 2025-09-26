@@ -1,12 +1,12 @@
-const DashboardSummary = require("../models/dashboardSummarySchema");
+const  DashboardSummary = require ("../models/dashboardSummarySchema.js");
 
 // Get summary for a partner
 const getDashboardSummary = async (req, res) => {
   try {
-    const partnerId = req.user.partnerId; // 👈 from token
+    const { partnerId } = req.params; // 👈 get from URL params
 
     if (!partnerId) {
-      return res.status(400).json({ message: "Partner ID missing from token" });
+      return res.status(400).json({ message: "Partner ID is required" });
     }
 
     let summary = await DashboardSummary.findOne({ partnerId });
@@ -31,9 +31,10 @@ const getDashboardSummary = async (req, res) => {
 // Update summary
 const updateDashboardSummary = async (req, res) => {
   try {
-    const partnerId = req.partner.partnerId; // 👈 from token
+    const { partnerId } = req.params; // 👈 get from URL params
+
     if (!partnerId) {
-      return res.status(400).json({ message: "Partner ID missing from token" });
+      return res.status(400).json({ message: "Partner ID is required" });
     }
 
     const { totalBookings, incomingReservations, payoutAmount, payoutStatus, viewsThisWeek } = req.body;
@@ -51,7 +52,4 @@ const updateDashboardSummary = async (req, res) => {
   }
 };
 
-module.exports = {
-  getDashboardSummary,
-  updateDashboardSummary,
-};
+module.exports = { getDashboardSummary, updateDashboardSummary };

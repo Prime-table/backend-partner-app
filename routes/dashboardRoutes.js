@@ -4,7 +4,7 @@ const { authMiddleware, partnerMiddleware }  = require("../middleware/authMiddle
 const router = express.Router();
 
 // fetch all dashboard data (bookings + cards)
-router.get("/", partnerMiddleware, dashboardControllers.getDashboardData);
+router.get("/:id", partnerMiddleware, dashboardControllers.getDashboardData);
 
 // create a new booking
 router.post("/bookings",  authMiddleware, dashboardControllers.createBooking);
