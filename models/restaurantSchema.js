@@ -2,11 +2,7 @@ const mongoose = require("mongoose");
 
 const restaurantSchema = new mongoose.Schema(
   {
-    owner: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User", // or "Partner" depending on your user model name
-      required: true,
-    },
+    partnerId: { type: String, required: true },
     restaurantName: { type: String, required: true },
     address: { type: String, required: true },
     openAt: { type: String, required: true },

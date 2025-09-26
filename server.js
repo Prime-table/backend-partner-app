@@ -62,9 +62,9 @@ connectDb();
 
 //Partner Routes
 app.use('/auth', authRoutes);
-app.use('/reservations', reservationRoutes);
+app.use('/reservation', reservationRoutes);
 app.use('/dashboard', dashboardRoutes);
-app.use("/restaurants", restaurantRoutes);
+app.use("/restaurant", restaurantRoutes);
 app.use('/analytics', analyticsRoutes);
 app.use("/analytics-summary", analyticsSummaryRoutes);
 app.use('/promotions', promotionRoutes);

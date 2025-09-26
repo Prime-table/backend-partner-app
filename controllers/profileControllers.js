@@ -12,6 +12,7 @@ const createProfile = async (req, res) => {
       premiumTable,
       pricePerTable,
       description,
+      partnerId,
     } = req.body;
 
     let photoUrl = "";
@@ -44,7 +45,7 @@ const createProfile = async (req, res) => {
       description,
       restaurantPhoto: photoUrl,
       secondaryPhoto: secondaryPhotoUrl,
-      owner: req.user.id, // ✅ user comes from auth middleware
+      partnerId
     });
 
     await newRestaurant.save();
@@ -81,15 +82,21 @@ const getProfiles = async (req, res) => {
 // ✅ Get a profile by ID (public view)
 const getProfileById = async (req, res) => {
   try {
-    const restaurant = await Restaurant.findById(req.params.id);
+    const { id } = req.params; // ✅ read partnerId from URL params
+
+    const restaurant = await Restaurant.findOne({ partnerId: id });
+
     if (!restaurant) {
       return res.status(404).json({ error: "Profile not found" });
     }
+
     res.json(restaurant);
   } catch (err) {
+    console.error("Error fetching profile by partnerId:", err);
     res.status(500).json({ error: "Failed to fetch profile" });
   }
 };
+
 
 // ✅ Update Profile (only owner)
 const updateProfile = async (req, res) => {
