@@ -61,7 +61,7 @@ const partnerMiddleware = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET); // make sure you set JWT_SECRET in .env
-    req.partner = decoded; // contains partnerId, email, etc
+    req.user = decoded; // contains partnerId, email, etc
     next();
   } catch (err) {
     return res.status(401).json({ message: "Token is not valid" });
