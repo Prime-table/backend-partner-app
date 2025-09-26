@@ -1,13 +1,13 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
-const { v4: uuidv4 } = require("uuid"); // install with: npm install uuid
+// const { v4: uuidv4 } = require("uuid"); // install with: npm install uuid
 
 const partnerSchema = new mongoose.Schema(
   {
     partnerId: {
       type: String,
       unique: true,
-      default: () => uuidv4(), // auto-generate UUID as partnerId
+      // default: () => uuidv4(), 
     },
     email: {
       type: String,

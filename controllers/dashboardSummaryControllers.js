@@ -5,13 +5,13 @@ const getDashboardSummary = async (req, res) => {
   try {
     const { partnerId } = req.params; // 👈 get from URL params
 
-    
+
 
     if (!partnerId) {
       return res.status(400).json({ message: "Partner ID is required" });
     }
 
-    let summary = await DashboardSummary.findOne({ partnerId });
+    let summary = await DashboardSummary.findOne("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDY0ODg1MDk4Y2UxZTgzZjQ0MWM1MiIsImlhdCI6MTc1ODg3NzE0MSwiZXhwIjoxNzYxNDY5MTQxfQ.8T2qaHYz5Wpb4X6VkKOEBXkf_CnQbxQnpiznxef4VWw");
 
     if (!summary) {
       summary = {
