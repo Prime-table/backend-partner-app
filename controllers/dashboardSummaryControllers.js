@@ -3,7 +3,10 @@ const DashboardSummary = require("../models/dashboardSummarySchema");
 // Get summary for a partner
 const getDashboardSummary = async (req, res) => {
   try {
-    const partnerId = req.partner.partnerId; // 👈 from token
+    const partnerId = req.user.partnerId; // 👈 from token
+
+    console.log(req.user.partnerId)
+
     if (!partnerId) {
       return res.status(400).json({ message: "Partner ID missing from token" });
     }
