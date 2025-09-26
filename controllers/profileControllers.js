@@ -1,7 +1,7 @@
 const Restaurant = require("../models/restaurantSchema");
 const cloudinary = require("../config/cloudinary");
 
-// Create Profile
+// ✅ Create Profile (auth required)
 const createProfile = async (req, res) => {
   try {
     const {
@@ -33,6 +33,7 @@ const createProfile = async (req, res) => {
       secondaryPhotoUrl = uploadRes2.secure_url;
     }
 
+    // Link profile to logged-in partner
     const newRestaurant = new Restaurant({
       restaurantName,
       address,
@@ -43,6 +44,7 @@ const createProfile = async (req, res) => {
       description,
       restaurantPhoto: photoUrl,
       secondaryPhoto: secondaryPhotoUrl,
+      owner: req.user.id, // ✅ user comes from auth middleware
     });
 
     await newRestaurant.save();
@@ -53,7 +55,20 @@ const createProfile = async (req, res) => {
   }
 };
 
-// Get All Profiles
+// ✅ Get logged-in partner’s profile
+const getMyProfile = async (req, res) => {
+  try {
+    const restaurant = await Restaurant.findOne({ owner: req.user.id });
+    if (!restaurant) {
+      return res.status(404).json({ error: "Profile not found" });
+    }
+    res.json(restaurant);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch profile" });
+  }
+};
+
+// ✅ Get all profiles (public or admin use)
 const getProfiles = async (req, res) => {
   try {
     const restaurants = await Restaurant.find();
@@ -63,7 +78,7 @@ const getProfiles = async (req, res) => {
   }
 };
 
-// Get Single Profile
+// ✅ Get a profile by ID (public view)
 const getProfileById = async (req, res) => {
   try {
     const restaurant = await Restaurant.findById(req.params.id);
@@ -76,7 +91,7 @@ const getProfileById = async (req, res) => {
   }
 };
 
-// Update Profile
+// ✅ Update Profile (only owner)
 const updateProfile = async (req, res) => {
   try {
     const updates = req.body;
@@ -97,14 +112,15 @@ const updateProfile = async (req, res) => {
       updates.secondaryPhoto = uploadRes2.secure_url;
     }
 
-    const restaurant = await Restaurant.findByIdAndUpdate(
-      req.params.id,
+    // Ensure only the owner can update
+    const restaurant = await Restaurant.findOneAndUpdate(
+      { _id: req.params.id, owner: req.user.id },
       updates,
       { new: true }
     );
 
     if (!restaurant) {
-      return res.status(404).json({ error: "Profile not found" });
+      return res.status(404).json({ error: "Profile not found or unauthorized" });
     }
 
     res.json(restaurant);
@@ -113,13 +129,18 @@ const updateProfile = async (req, res) => {
   }
 };
 
-// Delete Profile
+// ✅ Delete Profile (only owner)
 const deleteProfile = async (req, res) => {
   try {
-    const restaurant = await Restaurant.findByIdAndDelete(req.params.id);
+    const restaurant = await Restaurant.findOneAndDelete({
+      _id: req.params.id,
+      owner: req.user.id,
+    });
+
     if (!restaurant) {
-      return res.status(404).json({ error: "Profile not found" });
+      return res.status(404).json({ error: "Profile not found or unauthorized" });
     }
+
     res.json({ message: "Profile deleted successfully" });
   } catch (err) {
     res.status(500).json({ error: "Failed to delete profile" });
@@ -128,6 +149,7 @@ const deleteProfile = async (req, res) => {
 
 module.exports = {
   createProfile,
+  getMyProfile,
   getProfiles,
   getProfileById,
   updateProfile,
