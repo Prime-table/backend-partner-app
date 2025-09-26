@@ -5,6 +5,8 @@ const getDashboardSummary = async (req, res) => {
   try {
     const { partnerId } = req.params; // 👈 get from URL params
 
+    
+
     if (!partnerId) {
       return res.status(400).json({ message: "Partner ID is required" });
     }
