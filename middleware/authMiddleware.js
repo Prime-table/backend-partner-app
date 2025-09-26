@@ -48,5 +48,25 @@ const authMiddleware = (req, res, next) => {
   }
 };
 
+const jwt = require("jsonwebtoken");
 
-module.exports = { protect, authMiddleware };
+const partnerMiddleware = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return res.status(401).json({ message: "No token, authorization denied" });
+  }
+
+  const token = authHeader.split(" ")[1];
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET); // make sure you set JWT_SECRET in .env
+    req.partner = decoded; // contains partnerId, email, etc
+    next();
+  } catch (err) {
+    return res.status(401).json({ message: "Token is not valid" });
+  }
+};
+
+
+module.exports = { protect, authMiddleware, partnerMiddleware };
