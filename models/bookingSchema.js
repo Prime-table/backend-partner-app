@@ -2,7 +2,7 @@
 const mongoose = require("mongoose");
 
 const bookingSchema = new mongoose.Schema({
-  bookingId: { type: String, required: true, unique: true },
+  bookingId: { type: String, required: true, },
   partnerId: { type: String, required: true },
   date: { type: String, required: true }, // keep as string (yyyy-mm-dd)
   amount: { type: Number, required: true },
