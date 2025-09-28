@@ -1,13 +1,19 @@
 const Booking = require("../models/bookingSchema");
 const Card = require("../models/cardSchema");
+const Reservation = require("../models/reservationSchema");
 
 // 📌 Get dashboard data
 const getDashboardData = async (req, res) => {
-  try {
-    const bookings = await Booking.find({});
-    const cards = await Card.find({});
 
-    res.json({ bookings, cards });
+
+  const { id } = req.params
+
+  try {
+    const bookings = await Booking.find({ partnerId : id });
+    const reservation = await Reservation.find({ partnerId : id })
+
+
+    res.json({ bookings, reservation });
   } catch (err) {
     console.error("Dashboard fetch error:", err.message);
     res.status(500).json({ error: "Failed to fetch dashboard data" });

@@ -65,17 +65,17 @@ connectDb();
 
 //Partner Routes
 app.use('/auth', authRoutes);
-app.use('/prime-table-partner/reservations', reservationRoutes);
-app.use('/prime-table-partner/dashboard', dashboardRoutes);
-app.use("/prime-table-partner/restaurants", restaurantRoutes);
-app.use('/prime-table-partner/analytics', analyticsRoutes);
-app.use("/prime-table-partner/analytics-summary", analyticsSummaryRoutes);
-app.use('/prime-table-partner/promotions', promotionRoutes);
-app.use("/prime-table-partner/profile-setting", profileSettingRoutes);
-app.use("/prime-table-partner/payout", payoutDetailsRoutes);
-app.use("/prime-table-partner/security", securityRoutes);
-app.use("/prime-table-partner/settings", communicationRoutes);
-app.use('/prime-table-partner', dashboardSummaryRoutes);
+app.use('/reservation', reservationRoutes);
+app.use('/dashboard', dashboardRoutes);
+app.use("/restaurant", restaurantRoutes);
+app.use('/analytics', analyticsRoutes);
+app.use("/analytics-summary", analyticsSummaryRoutes);
+app.use('/promotions', promotionRoutes);
+app.use("/profile-setting", profileSettingRoutes);
+app.use("/payout", payoutDetailsRoutes);
+app.use("/security", securityRoutes);
+app.use("/settings", communicationRoutes);
+app.use('/dashboard-summary', dashboardSummaryRoutes);
 
 //Admin Routes
 app.use('/prime-table-admin', adminRoutes);

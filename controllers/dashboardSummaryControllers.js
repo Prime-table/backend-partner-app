@@ -1,14 +1,17 @@
-const DashboardSummary = require("../models/dashboardSummarySchema");
+const  DashboardSummary = require ("../models/dashboardSummarySchema.js");
 
 // Get summary for a partner
 const getDashboardSummary = async (req, res) => {
   try {
-    const { partnerId } = req.query;
-    if (!partnerId) return res.status(400).json({ message: "Partner ID is required" });
+    const { partnerId } = req.params; // 👈 get from URL params
+    
+
+    if (!partnerId) {
+      return res.status(400).json({ message: "Partner ID is required" });
+    }
 
     let summary = await DashboardSummary.findOne({ partnerId });
 
-    // fallback if not found
     if (!summary) {
       summary = {
         totalBookings: 0,
@@ -21,16 +24,21 @@ const getDashboardSummary = async (req, res) => {
 
     res.status(200).json(summary);
   } catch (err) {
-    console.error(err);
+    console.error("Get Dashboard Summary Error:", err);
     res.status(500).json({ message: "Server error fetching dashboard summary" });
   }
 };
 
-// Optional: update summary (e.g., after booking/payment)
+// Update summary
 const updateDashboardSummary = async (req, res) => {
   try {
-    const { partnerId, totalBookings, incomingReservations, payoutAmount, payoutStatus, viewsThisWeek } = req.body;
-    if (!partnerId) return res.status(400).json({ message: "Partner ID is required" });
+    const { partnerId } = req.params; // 👈 get from URL params
+
+    if (!partnerId) {
+      return res.status(400).json({ message: "Partner ID is required" });
+    }
+
+    const { totalBookings, incomingReservations, payoutAmount, payoutStatus, viewsThisWeek } = req.body;
 
     const summary = await DashboardSummary.findOneAndUpdate(
       { partnerId },
@@ -40,12 +48,9 @@ const updateDashboardSummary = async (req, res) => {
 
     res.status(200).json(summary);
   } catch (err) {
-    console.error("Update dashboard summary error:", err);
+    console.error("Update Dashboard Summary Error:", err);
     res.status(500).json({ message: "Server error updating dashboard summary" });
   }
 };
 
-module.exports = {
-  getDashboardSummary,
-  updateDashboardSummary,
-};
+module.exports = { getDashboardSummary, updateDashboardSummary };

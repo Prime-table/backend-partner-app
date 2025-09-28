@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 
 const reservationSchema = new mongoose.Schema(
   {
+    partnerId: {
+      type: String, // reference to Partner collection
+      required: true,
+    },
     date: { type: String, required: true },
     time: { type: String, required: true },
     size: { type: Number, required: true },

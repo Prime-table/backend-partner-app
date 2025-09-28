@@ -1,7 +1,7 @@
 const Restaurant = require("../models/restaurantSchema");
 const cloudinary = require("../config/cloudinary");
 
-// Create Profile
+// ✅ Create Profile (auth required)
 const createProfile = async (req, res) => {
   try {
     const {
@@ -12,6 +12,7 @@ const createProfile = async (req, res) => {
       premiumTable,
       pricePerTable,
       description,
+      partnerId,
     } = req.body;
 
     let photoUrl = "";
@@ -33,6 +34,7 @@ const createProfile = async (req, res) => {
       secondaryPhotoUrl = uploadRes2.secure_url;
     }
 
+    // Link profile to logged-in partner
     const newRestaurant = new Restaurant({
       restaurantName,
       address,
@@ -43,6 +45,7 @@ const createProfile = async (req, res) => {
       description,
       restaurantPhoto: photoUrl,
       secondaryPhoto: secondaryPhotoUrl,
+      partnerId
     });
 
     await newRestaurant.save();
@@ -53,20 +56,10 @@ const createProfile = async (req, res) => {
   }
 };
 
-// Get All Profiles
-const getProfiles = async (req, res) => {
+// ✅ Get logged-in partner’s profile
+const getMyProfile = async (req, res) => {
   try {
-    const restaurants = await Restaurant.find();
-    res.json(restaurants);
-  } catch (err) {
-    res.status(500).json({ error: "Failed to fetch profiles" });
-  }
-};
-
-// Get Single Profile
-const getProfileById = async (req, res) => {
-  try {
-    const restaurant = await Restaurant.findById(req.params.id);
+    const restaurant = await Restaurant.findOne({ owner: req.user.id });
     if (!restaurant) {
       return res.status(404).json({ error: "Profile not found" });
     }
@@ -76,7 +69,36 @@ const getProfileById = async (req, res) => {
   }
 };
 
-// Update Profile
+// ✅ Get all profiles (public or admin use)
+const getProfiles = async (req, res) => {
+  try {
+    const restaurants = await Restaurant.find();
+    res.json(restaurants);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch profiles" });
+  }
+};
+
+// ✅ Get a profile by ID (public view)
+const getProfileById = async (req, res) => {
+  try {
+    const { id } = req.params; // ✅ read partnerId from URL params
+
+    const restaurant = await Restaurant.findOne({ partnerId: id });
+
+    if (!restaurant) {
+      return res.status(404).json({ error: "Profile not found" });
+    }
+
+    res.json(restaurant);
+  } catch (err) {
+    console.error("Error fetching profile by partnerId:", err);
+    res.status(500).json({ error: "Failed to fetch profile" });
+  }
+};
+
+
+// ✅ Update Profile (only owner)
 const updateProfile = async (req, res) => {
   try {
     const updates = req.body;
@@ -97,14 +119,15 @@ const updateProfile = async (req, res) => {
       updates.secondaryPhoto = uploadRes2.secure_url;
     }
 
-    const restaurant = await Restaurant.findByIdAndUpdate(
-      req.params.id,
+    // Ensure only the owner can update
+    const restaurant = await Restaurant.findOneAndUpdate(
+      { _id: req.params.id, owner: req.user.id },
       updates,
       { new: true }
     );
 
     if (!restaurant) {
-      return res.status(404).json({ error: "Profile not found" });
+      return res.status(404).json({ error: "Profile not found or unauthorized" });
     }
 
     res.json(restaurant);
@@ -113,13 +136,18 @@ const updateProfile = async (req, res) => {
   }
 };
 
-// Delete Profile
+// ✅ Delete Profile (only owner)
 const deleteProfile = async (req, res) => {
   try {
-    const restaurant = await Restaurant.findByIdAndDelete(req.params.id);
+    const restaurant = await Restaurant.findOneAndDelete({
+      _id: req.params.id,
+      owner: req.user.id,
+    });
+
     if (!restaurant) {
-      return res.status(404).json({ error: "Profile not found" });
+      return res.status(404).json({ error: "Profile not found or unauthorized" });
     }
+
     res.json({ message: "Profile deleted successfully" });
   } catch (err) {
     res.status(500).json({ error: "Failed to delete profile" });
@@ -128,6 +156,7 @@ const deleteProfile = async (req, res) => {
 
 module.exports = {
   createProfile,
+  getMyProfile,
   getProfiles,
   getProfileById,
   updateProfile,

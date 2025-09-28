@@ -40,6 +40,7 @@ const loginPartner = async (req, res) => {
         _id: partner._id,
         email: partner.email,
         token: generateToken(partner._id),
+        partnerId: partner.partnerId
       });
     } else {
       res.status(401).json({ message: "Invalid email or password" });

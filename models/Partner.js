@@ -1,8 +1,14 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+// const { v4: uuidv4 } = require("uuid"); // install with: npm install uuid
 
 const partnerSchema = new mongoose.Schema(
   {
+    partnerId: {
+      type: String,
+      unique: true,
+      // default: () => uuidv4(), 
+    },
     email: {
       type: String,
       required: true,
@@ -15,13 +21,13 @@ const partnerSchema = new mongoose.Schema(
       required: true,
       minlength: 6,
     },
-
   },
   { timestamps: true }
 );
 
-//Virtual field (not stored in DB)
-partnerSchema.virtual("confirmPassword")
+// Virtual field (not stored in DB)
+partnerSchema
+  .virtual("confirmPassword")
   .set(function (value) {
     this._confirmPassword = value;
   })
