@@ -2,7 +2,8 @@
 const mongoose = require("mongoose");
 
 const bookingSchema = new mongoose.Schema({
-  booking_id: { type: String, required: true, unique: true },
+  bookingId: { type: String, required: true, unique: true },
+  partnerId: { type: String, required: true },
   date: { type: String, required: true }, // keep as string (yyyy-mm-dd)
   amount: { type: Number, required: true },
   status: { type: String, enum: ["Pending", "Paid", "In escrow"], required: true },
