@@ -28,6 +28,9 @@ const adminBrandingRoutes = require('./routes/adminBrandingRoutes');
 const adminIntegrationRoutes = require('./routes/adminIntegrationRoutes');
 const adminNotificationsRoutes = require('./routes/adminNotificationsRoutes');
 const adminSecurityRoutes = require('./routes/adminSecurityRoutes');
+const escrowRoutes = require('./routes/escrowRoutes');
+const bookingLogRoutes = require('./routes/bookingLogRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 
 
@@ -79,8 +82,12 @@ app.use('/prime-table-admin', adminRoutes);
 app.use('/prime-table-admin/settings', adminSettingsRoutes);
 app.use('/prime-table-admin/settings', adminBrandingRoutes);
 app.use('/prime-table-admin/settings/integration', adminIntegrationRoutes);
-app.use('/prime-table-admin/settings/notifications', adminNotificationsRoutes);
+app.use('/prime-table-admin/settings/notifications', adminNotificationsRoutes); 
 app.use('/prime-table-admin/settings/security', adminSecurityRoutes);
+app.use('/prime-table-admin/escrows', escrowRoutes);
+app.use('/prime-table-admin/bookings', bookingLogRoutes);
+app.use('/prime-table-admin/users', userRoutes);
+
 
 
 app.get("/", (req, res) => {
