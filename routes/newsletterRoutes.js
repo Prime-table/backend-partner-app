@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const newsletterController = require("../controllers/user/newletterController");
+const newsletterController = require("../controllers/newletterController");
 
 // Update partner password
 router.post("/newsletter", newsletterController.signUpNewsletter);
