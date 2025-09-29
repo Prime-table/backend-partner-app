@@ -12,6 +12,8 @@ const authRoutes = require('./routes/authRoutes')
 const reservationRoutes = require('./routes/reservationRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes');
 const restaurantRoutes = require('./routes/restaurantRoutes');
+const bookingRoutes = require('./routes/reservationRoutes');
+
 const analyticsRoutes = require('./routes/analyticsRoutes');
 const analyticsSummaryRoutes = require("./routes/analyticsSummaryRoutes");
 const promotionRoutes = require('./routes/promotionRoutes');
@@ -30,9 +32,20 @@ const adminNotificationsRoutes = require('./routes/adminNotificationsRoutes');
 const adminSecurityRoutes = require('./routes/adminSecurityRoutes');
 const escrowRoutes = require('./routes/escrowRoutes');
 const bookingLogRoutes = require('./routes/bookingLogRoutes');
+
 const userRoutes = require('./routes/userRoutes');
 const latestPartnersRoutes = require('./routes/latestPartnersRoutes');
 const reportRoutes = require('./routes/reportsRoutes');
+
+
+//userRoutes
+const userRestaurantRoutes = require("./routes/userRestaurantRoutes");
+const newsletterRoutes = require("./routes/newsletterRoutes");
+const userBookingRoutes = require("./routes/bookingLogRoutes");
+const ratingRoutes = require("./routes/ratingRoutes");
+const userAuthRoutes = require("./routes/userBookingRoutes");
+
+
 
 
 
@@ -68,8 +81,14 @@ connectDb();
 //Partner Routes
 app.use('/auth', authRoutes);
 app.use('/reservation', reservationRoutes);
+
 app.use('/dashboard', dashboardRoutes);
 app.use("/restaurant", restaurantRoutes); 
+
+app.use('/bookings', bookingRoutes);
+app.use("/restaurant", restaurantRoutes);
+app.use('/dashboard', dashboardRoutes);
+
 app.use('/analytics', analyticsRoutes);
 app.use("/analytics-summary", analyticsSummaryRoutes);
 app.use('/promotions', promotionRoutes);
@@ -88,9 +107,19 @@ app.use('/prime-table-admin/settings/notifications', adminNotificationsRoutes);
 app.use('/prime-table-admin/settings/security', adminSecurityRoutes);
 app.use('/prime-table-admin/escrows', escrowRoutes);
 app.use('/prime-table-admin/bookings', bookingLogRoutes);
+
 app.use('/prime-table-admin/users', userRoutes);
 app.use('/prime-table-admin/latest-partners', latestPartnersRoutes);
 app.use('/prime-table-admin/reports', reportRoutes);
+
+
+//userRoutes
+app.use('/', userRestaurantRoutes);
+app.use('/user', userAuthRoutes);
+app.use('/', newsletterRoutes);
+app.use('/user', userBookingRoutes);
+app.use('/user', ratingRoutes);
+
 
 
 

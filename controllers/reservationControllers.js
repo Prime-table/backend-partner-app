@@ -1,3 +1,4 @@
+const Booking = require("../models/bookingSchema");
 const Reservation = require("../models/reservationSchema");
 
 // @desc Get all reservations for a partner
@@ -10,6 +11,22 @@ const getReservations = async (req, res) => {
     }
 
     const reservations = await Reservation.find({ partnerId: id });
+    res.json(reservations);
+
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching reservations", error });
+  }
+};
+
+const getBookings = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!id) {
+      return res.status(400).json({ message: "Partner ID is required" });
+    }
+
+    const reservations = await Booking.find({ partnerId: id });
     res.json(reservations);
 
   } catch (error) {
@@ -89,6 +106,7 @@ const deleteReservation = async (req, res) => {
 
 module.exports = {
   getReservations,
+  getBookings,
   createReservation,
   updateReservation,
   deleteReservation,
