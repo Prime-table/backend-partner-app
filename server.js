@@ -31,6 +31,8 @@ const adminSecurityRoutes = require('./routes/adminSecurityRoutes');
 const escrowRoutes = require('./routes/escrowRoutes');
 const bookingLogRoutes = require('./routes/bookingLogRoutes');
 const userRoutes = require('./routes/userRoutes');
+const latestPartnersRoutes = require('./routes/latestPartnersRoutes');
+const reportRoutes = require('./routes/reportsRoutes');
 
 
 
@@ -42,7 +44,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000", // local dev
-      "http://localhost:3001", // local dev (another port you had)
+      "http://localhost:3001", // local dev 
       "https://frontend-partner-app.onrender.com", // production/staging
       "https://frontend-partner-app.onrender.com",
       "https://prime-table-admin.vercel.app/login" 
@@ -67,7 +69,7 @@ connectDb();
 app.use('/auth', authRoutes);
 app.use('/reservation', reservationRoutes);
 app.use('/dashboard', dashboardRoutes);
-app.use("/restaurant", restaurantRoutes);
+app.use("/restaurant", restaurantRoutes); 
 app.use('/analytics', analyticsRoutes);
 app.use("/analytics-summary", analyticsSummaryRoutes);
 app.use('/promotions', promotionRoutes);
@@ -87,6 +89,8 @@ app.use('/prime-table-admin/settings/security', adminSecurityRoutes);
 app.use('/prime-table-admin/escrows', escrowRoutes);
 app.use('/prime-table-admin/bookings', bookingLogRoutes);
 app.use('/prime-table-admin/users', userRoutes);
+app.use('/prime-table-admin/latest-partners', latestPartnersRoutes);
+app.use('/prime-table-admin/reports', reportRoutes);
 
 
 
