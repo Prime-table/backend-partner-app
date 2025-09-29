@@ -32,7 +32,6 @@ const adminNotificationsRoutes = require('./routes/adminNotificationsRoutes');
 const adminSecurityRoutes = require('./routes/adminSecurityRoutes');
 const escrowRoutes = require('./routes/escrowRoutes');
 const bookingLogRoutes = require('./routes/bookingLogRoutes');
-const userRoutes = require('./routes/userRoutes');
 
 //userRoutes
 const userRestaurantRoutes = require("./routes/userRestaurantRoutes");
