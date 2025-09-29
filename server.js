@@ -37,7 +37,7 @@ const userRoutes = require('./routes/userRoutes');
 //userRoutes
 const userRestaurantRoutes = require("./routes/userRestaurantRoutes");
 const newsletterRoutes = require("./routes/newsletterRoutes");
-const userBookingRoutes = require("./routes/bookingRoute");
+const userBookingRoutes = require("./routes/bookingLogRoutes");
 const ratingRoutes = require("./routes/ratingRoutes");
 const userAuthRoutes = require("./routes/userBookingRoutes");
 
