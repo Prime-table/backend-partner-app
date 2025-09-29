@@ -97,8 +97,6 @@ app.use('/prime-table-admin/settings/notifications', adminNotificationsRoutes);
 app.use('/prime-table-admin/settings/security', adminSecurityRoutes);
 app.use('/prime-table-admin/escrows', escrowRoutes);
 app.use('/prime-table-admin/bookings', bookingLogRoutes);
-app.use('/prime-table-admin/users', userRoutes);
-
 
 //userRoutes
 app.use('/user', userRestaurantRoutes);
