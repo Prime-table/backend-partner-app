@@ -1,4 +1,4 @@
-const Restaurant = require("../../models/partner/restaurantSchema");
+const Restaurant = require("../models/restaurantSchema");
 
 // @desc   Get all menus
 // @route  GET /api/menus
