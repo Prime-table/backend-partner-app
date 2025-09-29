@@ -10,19 +10,19 @@ const registerUser = async (req, res) => {
   try {
     const { email, password, confirmPassword } = req.body;
 
-    const partnerExists = await User.findOne({ email });
+    const userExists = await User.findOne({ email });
     if (partnerExists) {
       return res.status(400).json({ message: "User already exists" });
     }
 
-    const partner = new User({ email, password });
+    const User = new User({ email, password });
     partner.confirmPassword = confirmPassword; // set virtual field
-    await partner.save();
+    await User.save();
 
     res.status(201).json({
-      _id: partner._id,
-      email: partner.email,
-      token: generateToken(partner._id),
+      _id: User._id,
+      email: User.email,
+      token: generateToken(User._id),
     });
   } catch (error) {
     res.status(400).json({ message: error.message });

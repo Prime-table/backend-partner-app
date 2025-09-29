@@ -98,9 +98,9 @@ app.use('/prime-table-admin/escrows', escrowRoutes);
 app.use('/prime-table-admin/bookings', bookingLogRoutes);
 
 //userRoutes
-app.use('/user', userRestaurantRoutes);
+app.use('/', userRestaurantRoutes);
 app.use('/user', userAuthRoutes);
-app.use('/user', newsletterRoutes);
+app.use('/', newsletterRoutes);
 app.use('/user', userBookingRoutes);
 app.use('/user', ratingRoutes);
 

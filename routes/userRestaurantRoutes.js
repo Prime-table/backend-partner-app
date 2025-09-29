@@ -3,7 +3,7 @@ const router = express.Router();
 const RestaurantController = require("../controllers/RestaurantController");
 
 // Update partner password
-router.get("/restaurant", RestaurantController.getAllRestaurant);
-router.get("/restaurant/:id", RestaurantController.getRestaurantById);
+router.get("/menus", RestaurantController.getAllRestaurant);
+router.get("/menus/:id", RestaurantController.getRestaurantById);
 
 module.exports = router;
