@@ -12,6 +12,8 @@ const authRoutes = require('./routes/authRoutes')
 const reservationRoutes = require('./routes/reservationRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes');
 const restaurantRoutes = require('./routes/restaurantRoutes');
+const bookingRoutes = require('./routes/reservationRoutes');
+
 const analyticsRoutes = require('./routes/analyticsRoutes');
 const analyticsSummaryRoutes = require("./routes/analyticsSummaryRoutes");
 const promotionRoutes = require('./routes/promotionRoutes');
@@ -28,6 +30,14 @@ const adminBrandingRoutes = require('./routes/adminBrandingRoutes');
 const adminIntegrationRoutes = require('./routes/adminIntegrationRoutes');
 const adminNotificationsRoutes = require('./routes/adminNotificationsRoutes');
 const adminSecurityRoutes = require('./routes/adminSecurityRoutes');
+
+//userRoutes
+const userRestaurantRoutes = require("./routes/userRestaurantRoutes");
+const newsletterRoutes = require("./routes/newsletterRoutes");
+const userBookingRoutes = require("./routes/bookingRoute");
+const ratingRoutes = require("./routes/ratingRoutes");
+const userAuthRoutes = require("./routes/userBookingRoutes");
+
 
 
 
@@ -63,8 +73,9 @@ connectDb();
 //Partner Routes
 app.use('/auth', authRoutes);
 app.use('/reservation', reservationRoutes);
-app.use('/dashboard', dashboardRoutes);
+app.use('/bookings', bookingRoutes);
 app.use("/restaurant", restaurantRoutes);
+app.use('/dashboard', dashboardRoutes);
 app.use('/analytics', analyticsRoutes);
 app.use("/analytics-summary", analyticsSummaryRoutes);
 app.use('/promotions', promotionRoutes);
@@ -81,6 +92,14 @@ app.use('/prime-table-admin/settings', adminBrandingRoutes);
 app.use('/prime-table-admin/settings/integration', adminIntegrationRoutes);
 app.use('/prime-table-admin/settings/notifications', adminNotificationsRoutes);
 app.use('/prime-table-admin/settings/security', adminSecurityRoutes);
+
+//userRoutes
+app.use('/user', userRestaurantRoutes);
+app.use('/user', userAuthRoutes);
+app.use('/user', newsletterRoutes);
+app.use('/user', userBookingRoutes);
+app.use('/user', ratingRoutes);
+
 
 
 app.get("/", (req, res) => {

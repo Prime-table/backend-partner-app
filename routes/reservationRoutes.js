@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get("/:id", reservationControllers.getReservations);
 
-// router.post("/:id", reservationControllers.createReservation);
+router.post("/:id", reservationControllers.getBookings);
 // router.put("/:id", reservationControllers.updateReservation);
 // router.delete("/:id", reservationControllers.deleteReservation);
 
