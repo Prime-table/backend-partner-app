@@ -34,6 +34,22 @@ const getBookings = async (req, res) => {
   }
 };
 
+const getAllBookings = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!id) {
+      return res.status(400).json({ message: "Partner ID is required" });
+    }
+
+    const reservations = await Booking.find({ });
+    res.json(reservations);
+
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching reservations", error });
+  }
+};
+
 // @desc Create a new reservation for a partner
 const createReservation = async (req, res) => {
   try {
@@ -107,6 +123,7 @@ const deleteReservation = async (req, res) => {
 module.exports = {
   getReservations,
   getBookings,
+  getAllBookings,
   createReservation,
   updateReservation,
   deleteReservation,

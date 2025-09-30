@@ -32,6 +32,7 @@ const adminNotificationsRoutes = require('./routes/adminNotificationsRoutes');
 const adminSecurityRoutes = require('./routes/adminSecurityRoutes');
 const escrowRoutes = require('./routes/escrowRoutes');
 const bookingLogRoutes = require('./routes/bookingLogRoutes');
+const partnerRoutes = require('./routes/partnerRoutes');
 
 // const userRoutes = require('./routes/userRoutes');
 const latestPartnersRoutes = require('./routes/latestPartnersRoutes');
@@ -60,7 +61,8 @@ app.use(
       "http://localhost:3001", // local dev 
       "https://frontend-partner-app.onrender.com", // production/staging
       "https://frontend-partner-app.onrender.com",
-      "https://prime-table-admin.vercel.app" 
+      "https://prime-table-admin.vercel.app",
+      "https://frontend-user-app.onrender.com/"
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
@@ -86,6 +88,7 @@ app.use('/dashboard', dashboardRoutes);
 app.use("/restaurant", restaurantRoutes); 
 
 app.use('/bookings', bookingRoutes);
+app.use('/partners', partnerRoutes);
 app.use("/restaurant", restaurantRoutes);
 app.use('/dashboard', dashboardRoutes);
 
