@@ -33,12 +33,18 @@ const adminSecurityRoutes = require('./routes/adminSecurityRoutes');
 const escrowRoutes = require('./routes/escrowRoutes');
 const bookingLogRoutes = require('./routes/bookingLogRoutes');
 
+const userRoutes = require('./routes/userRoutes');
+const latestPartnersRoutes = require('./routes/latestPartnersRoutes');
+const reportRoutes = require('./routes/reportsRoutes');
+
+
 //userRoutes
 const userRestaurantRoutes = require("./routes/userRestaurantRoutes");
 const newsletterRoutes = require("./routes/newsletterRoutes");
 const userBookingRoutes = require("./routes/bookingLogRoutes");
 const ratingRoutes = require("./routes/ratingRoutes");
 const userAuthRoutes = require("./routes/userBookingRoutes");
+
 
 
 
@@ -51,7 +57,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000", // local dev
-      "http://localhost:3001", // local dev (another port you had)
+      "http://localhost:3001", // local dev 
       "https://frontend-partner-app.onrender.com", // production/staging
       "https://frontend-partner-app.onrender.com",
       "https://prime-table-admin.vercel.app/" 
@@ -75,9 +81,14 @@ connectDb();
 //Partner Routes
 app.use('/auth', authRoutes);
 app.use('/reservation', reservationRoutes);
+
+app.use('/dashboard', dashboardRoutes);
+app.use("/restaurant", restaurantRoutes); 
+
 app.use('/bookings', bookingRoutes);
 app.use("/restaurant", restaurantRoutes);
 app.use('/dashboard', dashboardRoutes);
+
 app.use('/analytics', analyticsRoutes);
 app.use("/analytics-summary", analyticsSummaryRoutes);
 app.use('/promotions', promotionRoutes);
@@ -97,12 +108,18 @@ app.use('/prime-table-admin/settings/security', adminSecurityRoutes);
 app.use('/prime-table-admin/escrows', escrowRoutes);
 app.use('/prime-table-admin/bookings', bookingLogRoutes);
 
+app.use('/prime-table-admin/users', userRoutes);
+app.use('/prime-table-admin/latest-partners', latestPartnersRoutes);
+app.use('/prime-table-admin/reports', reportRoutes);
+
+
 //userRoutes
 app.use('/', userRestaurantRoutes);
 app.use('/user', userAuthRoutes);
 app.use('/', newsletterRoutes);
 app.use('/user', userBookingRoutes);
 app.use('/user', ratingRoutes);
+
 
 
 
