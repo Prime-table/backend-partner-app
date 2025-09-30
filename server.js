@@ -54,7 +54,7 @@ app.use(
       "http://localhost:3001", // local dev (another port you had)
       "https://frontend-partner-app.onrender.com", // production/staging
       "https://frontend-partner-app.onrender.com",
-      "https://prime-table-admin.vercel.app/login" 
+      "https://prime-table-admin.vercel.app/" 
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
