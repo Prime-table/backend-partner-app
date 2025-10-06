@@ -121,7 +121,7 @@ app.use('/user', userAuthRoutes);
 app.use('/', newsletterRoutes);
 app.use('/user', userBookingRoutes);
 // app.use('/user', ratingRoutes);
-app.use('/usermanagement', userManagementRoutes);
+app.use('/user', userManagementRoutes);
 
 
 
