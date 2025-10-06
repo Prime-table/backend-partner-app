@@ -50,8 +50,6 @@ const userManagementRoutes = require("./routes/userManagementRoutes");
 
 
 
-
-
 const app = express();
 
 // Middleware
@@ -122,7 +120,7 @@ app.use('/', userRestaurantRoutes);
 app.use('/user', userAuthRoutes);
 app.use('/', newsletterRoutes);
 app.use('/user', userBookingRoutes);
-app.use('/user', ratingRoutes);
+// app.use('/user', ratingRoutes);
 app.use('/usermanagement', userManagementRoutes);
 
 

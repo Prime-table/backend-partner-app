@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const userController = require("../controllers/userControllers");
-s
+
 // Update partner password
 router.get("/", userController.getUsers);
 
