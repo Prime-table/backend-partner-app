@@ -7,8 +7,8 @@ const BookingSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    restaurantId: {
-      type: mongoose.Schema.Types.ObjectId,
+    partnerId: {
+      type: String,
       ref: "Restaurant",
       required: true,
     },

@@ -45,6 +45,7 @@ const newsletterRoutes = require("./routes/newsletterRoutes");
 const userBookingRoutes = require("./routes/bookingLogRoutes");
 const ratingRoutes = require("./routes/ratingRoutes");
 const userAuthRoutes = require("./routes/userBookingRoutes");
+const userManagementRoutes = require("./routes/userManagementRoutes");
 
 
 
@@ -85,7 +86,7 @@ app.use('/auth', authRoutes);
 app.use('/reservation', reservationRoutes);
 
 app.use('/dashboard', dashboardRoutes);
-app.use("/restaurant", restaurantRoutes); 
+// app.use("/restaurant", restaurantRoutes); 
 
 app.use('/bookings', bookingRoutes);
 app.use('/partners', partnerRoutes);
@@ -122,6 +123,7 @@ app.use('/user', userAuthRoutes);
 app.use('/', newsletterRoutes);
 app.use('/user', userBookingRoutes);
 app.use('/user', ratingRoutes);
+app.use('/usermanagement', userManagementRoutes);
 
 
 
