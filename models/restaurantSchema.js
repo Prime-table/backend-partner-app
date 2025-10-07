@@ -10,6 +10,15 @@ const restaurantSchema = new mongoose.Schema(
     premiumTable: { type: String, enum: ["yes", "no"], default: "no" },
     pricePerTable: { type: String, default: "$0" },
     description: { type: String },
+    status: {
+      type: string,
+      enum: [
+        "Pending",
+        "Approved",
+        "Rejected",
+      ],
+      default: "Pending"
+    },
     restaurantPhoto: { type: String }, // Cloudinary URL
     secondaryPhoto: { type: String },  // Cloudinary URL
 
