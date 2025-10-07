@@ -8,7 +8,7 @@ const cors = require("cors");
 const connectDb = require('./config/db');
 
 //Partner Routes
-const authRoutes = require('./routes/authRoutes')
+const authRoutes = require('./routes/PartnerAuthRoutes')
 const reservationRoutes = require('./routes/reservationRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes');
 const restaurantRoutes = require('./routes/restaurantRoutes');
@@ -44,7 +44,7 @@ const userRestaurantRoutes = require("./routes/userRestaurantRoutes");
 const newsletterRoutes = require("./routes/newsletterRoutes");
 const userBookingRoutes = require("./routes/bookingLogRoutes");
 const ratingRoutes = require("./routes/ratingRoutes");
-const userAuthRoutes = require("./routes/userBookingRoutes");
+const userAuthRoutes = require("./routes/useraURoutes");
 const userManagementRoutes = require("./routes/userManagementRoutes");
 
 
