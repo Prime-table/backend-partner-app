@@ -11,7 +11,7 @@ const restaurantSchema = new mongoose.Schema(
     pricePerTable: { type: String, default: "$0" },
     description: { type: String },
     status: {
-      type: string,
+      type: String,
       enum: [
         "Pending",
         "Approved",
