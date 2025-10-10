@@ -3,9 +3,9 @@ const profileControllers = require("../controllers/profileControllers");
 
 const router = express.Router();
 
-router.post("/profile", profileControllers.createProfile);
-router.get("/profiles", profileControllers.getProfiles);
-router.get("/profile/:id", profileControllers.getProfileById);
+router.post("/create", profileControllers.createRestuarant);
+router.get("/all-restaurants", profileControllers.getRestuarants);
+// router.get("/profile/:id", profileControllers.getProfileById);
 // router.put("/profile/:id", profileControllers.updateProfile);
 // router.delete("/profile/:id", profileControllers.deleteProfile);
 

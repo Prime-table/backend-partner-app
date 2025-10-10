@@ -2,7 +2,7 @@ const Restaurant = require("../models/restaurantSchema");
 const cloudinary = require("../config/cloudinary");
 
 // ✅ Create Profile (auth required)
-const createProfile = async (req, res) => {
+const createRestuarant = async (req, res) => {
   try {
     const {
       restaurantName,
@@ -12,7 +12,7 @@ const createProfile = async (req, res) => {
       premiumTable,
       pricePerTable,
       description,
-      partnerId,
+      // partnerId,
     } = req.body;
 
     let photoUrl = "";
@@ -45,7 +45,6 @@ const createProfile = async (req, res) => {
       description,
       restaurantPhoto: photoUrl,
       secondaryPhoto: secondaryPhotoUrl,
-      partnerId
     });
 
     await newRestaurant.save();
@@ -57,7 +56,7 @@ const createProfile = async (req, res) => {
 };
 
 // ✅ Get logged-in partner’s profile
-const getMyProfile = async (req, res) => {
+const getMyRestuarant = async (req, res) => {
   try {
     const restaurant = await Restaurant.findOne({ owner: req.user.id });
     if (!restaurant) {
@@ -79,27 +78,9 @@ const getProfiles = async (req, res) => {
   }
 };
 
-// ✅ Get a profile by ID (public view)
-const getProfileById = async (req, res) => {
-  try {
-    const { id } = req.params; // ✅ read partnerId from URL params
-
-    const restaurant = await Restaurant.findOne({ partnerId: id });
-
-    if (!restaurant) {
-      return res.status(404).json({ error: "Profile not found" });
-    }
-
-    res.json(restaurant);
-  } catch (err) {
-    console.error("Error fetching profile by partnerId:", err);
-    res.status(500).json({ error: "Failed to fetch profile" });
-  }
-};
-
 
 // ✅ Update Profile (only owner)
-const updateProfile = async (req, res) => {
+const updateResturant = async (req, res) => {
   try {
     const updates = req.body;
 
@@ -137,7 +118,7 @@ const updateProfile = async (req, res) => {
 };
 
 // ✅ Delete Profile (only owner)
-const deleteProfile = async (req, res) => {
+const deleteRestaurant = async (req, res) => {
   try {
     const restaurant = await Restaurant.findOneAndDelete({
       _id: req.params.id,
@@ -155,10 +136,8 @@ const deleteProfile = async (req, res) => {
 };
 
 module.exports = {
-  createProfile,
-  getMyProfile,
-  getProfiles,
-  getProfileById,
-  updateProfile,
-  deleteProfile,
+  createRestuarant,
+  getMyRestuarant,
+  updateResturant,
+  deleteRestaurant,
 };
