@@ -1,5 +1,5 @@
 const Security = require("../models/securitySchema");
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 
 // Update partner password (create if not exists)
 const updateSecurity = async (req, res) => {

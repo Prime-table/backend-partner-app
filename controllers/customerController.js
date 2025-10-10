@@ -6,7 +6,7 @@ const generateToken = (id) => {
 };
 
 // Register User / Partner
-const registerUser = async (req, res) => {
+const registerCustomer = async (req, res) => {
   try {
     const { email, password, confirmPassword } = req.body;
 
@@ -35,38 +35,30 @@ const registerUser = async (req, res) => {
   }
 };
 
-// Login User
-const loginUser = async (req, res) => {
+const loginCustomer = async (req, res) => {
   try {
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
+
     if (user && (await user.matchPassword(password))) {
-      res.json({
+      res.status(200).json({
         _id: user._id,
         email: user.email,
         token: generateToken(user._id),
-        partnerId: user.partnerId, // make sure this field exists in your schema
       });
     } else {
       res.status(401).json({ message: "Invalid email or password" });
     }
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error("Login error:", error);
+    res.status(500).json({ message: "Server error during login" });
   }
 };
 
-// Logout User
-const logoutUser = async (req, res) => {
-  try {
-    res.status(200).json({ message: "Logged out successfully" });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
 
 // Get logged-in User Profile
-const getUserProfile = async (req, res) => {
+const getCustomerProfile = async (req, res) => {
   try {
     if (!req.user) {
       return res.status(404).json({ message: "User not found" });
@@ -82,9 +74,26 @@ const getUserProfile = async (req, res) => {
   }
 };
 
+// Get logged-in User Profile
+const getAllCustomers = async (req, res) => {
+  try {
+    // Find only users whose privacy is set to false
+    const users = await User.find({ privacy: false });
+
+    if (!users || users.length === 0) {
+      return res.status(404).json({ message: "No public profiles found" });
+    }
+
+    res.status(200).json(users);
+  } catch (err) {
+    console.error("Error fetching customers:", err);
+    res.status(500).json({ error: "Failed to fetch customers" });
+  }
+};
+
 module.exports = {
-  registerUser,
-  loginUser,
-  logoutUser,
-  getUserProfile,
+  registerCustomer,
+  loginCustomer,
+  getCustomerProfile,
+  getAllCustomers
 };

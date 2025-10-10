@@ -1,4 +1,4 @@
-const Restaurant = require("../models/restaurantSchema");
+const Restaurant = require("../models/restaurantModel");
 const cloudinary = require("../config/cloudinary");
 
 // ✅ Create Profile (auth required)
@@ -6,12 +6,14 @@ const createRestuarant = async (req, res) => {
   try {
     const {
       restaurantName,
-      address,
+      restaurantCountry,
+      restaurantAddress,
       openAt,
       closeAt,
       premiumTable,
       pricePerTable,
       description,
+      restaurantRating
       // partnerId,
     } = req.body;
 
@@ -37,7 +39,9 @@ const createRestuarant = async (req, res) => {
     // Link profile to logged-in partner
     const newRestaurant = new Restaurant({
       restaurantName,
-      address,
+      restaurantAddress,
+      restaurantCountry,
+      restaurantRating,
       openAt,
       closeAt,
       premiumTable,
@@ -50,15 +54,15 @@ const createRestuarant = async (req, res) => {
     await newRestaurant.save();
     res.status(201).json(newRestaurant);
   } catch (err) {
-    console.error("Create Profile Error:", err.message);
-    res.status(500).json({ error: "Failed to create profile" });
+    console.error("Create Profile Error:", err);
+    res.status(500).json({ error: err });
   }
 };
 
 // ✅ Get logged-in partner’s profile
-const getMyRestuarant = async (req, res) => {
+const getAllRestaurant = async (req, res) => {
   try {
-    const restaurant = await Restaurant.findOne({ owner: req.user.id });
+    const restaurant = await Restaurant.find({});
     if (!restaurant) {
       return res.status(404).json({ error: "Profile not found" });
     }
@@ -67,17 +71,6 @@ const getMyRestuarant = async (req, res) => {
     res.status(500).json({ error: "Failed to fetch profile" });
   }
 };
-
-// ✅ Get all profiles (public or admin use)
-const getProfiles = async (req, res) => {
-  try {
-    const restaurants = await Restaurant.find();
-    res.json(restaurants);
-  } catch (err) {
-    res.status(500).json({ error: "Failed to fetch profiles" });
-  }
-};
-
 
 // ✅ Update Profile (only owner)
 const updateResturant = async (req, res) => {
@@ -137,7 +130,7 @@ const deleteRestaurant = async (req, res) => {
 
 module.exports = {
   createRestuarant,
-  getMyRestuarant,
+  getAllRestaurant,
   updateResturant,
   deleteRestaurant,
 };

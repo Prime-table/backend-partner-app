@@ -40,10 +40,9 @@ const reportRoutes = require('./routes/reportsRoutes');
 
 
 //userRoutes
-const userRestaurantRoutes = require("./routes/userRestaurantRoutes");
 const newsletterRoutes = require("./routes/newsletterRoutes");
 const userBookingRoutes = require("./routes/bookingLogRoutes");
-const userAuthRoutes = require("./routes/useraURoutes");
+const userAuthRoutes = require("./routes/customerRoutes");
 
 
 
@@ -78,7 +77,6 @@ app.use(express.json());
 connectDb();
 
 //Partner Routes
-app.use('/auth', authRoutes);
 app.use('/reservation', reservationRoutes);
 
 app.use('/dashboard', dashboardRoutes);
@@ -86,7 +84,6 @@ app.use('/dashboard', dashboardRoutes);
 
 app.use('/bookings', bookingRoutes);
 app.use('/partners', partnerRoutes);
-app.use("/restaurant", restaurantRoutes);
 app.use('/dashboard', dashboardRoutes);
 
 app.use('/analytics', analyticsRoutes);
@@ -99,6 +96,7 @@ app.use("/settings", communicationRoutes);
 app.use('/dashboard-summary', dashboardSummaryRoutes);
 
 //Admin Routes
+app.use('/auth', authRoutes);
 app.use('/prime-table-admin', adminRoutes);
 app.use('/prime-table-admin/settings', adminSettingsRoutes);
 app.use('/prime-table-admin/settings', adminBrandingRoutes);
@@ -114,11 +112,28 @@ app.use('/prime-table-admin/reports', reportRoutes);
 
 
 //userRoutes
-app.use('/', userRestaurantRoutes);
-app.use('/user', userAuthRoutes);
 app.use('/', newsletterRoutes);
 app.use('/user', userBookingRoutes);
 // app.use('/user', ratingRoutes);
+
+
+
+
+
+
+
+
+
+app.use('/user', userAuthRoutes);
+app.use("/restaurant", restaurantRoutes);
+
+
+
+
+
+
+
+
 
 
 
